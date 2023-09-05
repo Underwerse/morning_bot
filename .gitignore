@@ -132,3 +132,5 @@ dist
 # eslint, prettier
 .eslint*
 .prettier*
+
+images

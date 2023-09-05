@@ -22,19 +22,24 @@ const sendRandomImage = () => {
 
   const randomImage = images[Math.floor(Math.random() * images.length)]
 
-  // Отправить сообщение от имени пользователя в группу
-  bot.sendMessage(chatId, 'Утреннее изображение:', {
-    reply_to_message_id: userId, // Ответ на сообщение пользователя
-  })
-
-  // Отправить изображение
+  // Пересылка изображения от моего аккаунта в группу
   bot
-    .sendPhoto(chatId, path.join(__dirname, 'images', randomImage))
+    .sendMessage(chatId, 'С добрым утром всех!', {
+      from: userId,
+    })
     .then(() => {
-      console.log(`Sent image: ${randomImage}`)
+      // Отправить изображение
+      bot
+        .sendPhoto(chatId, path.join(__dirname, 'images', randomImage))
+        .then(() => {
+          console.log(`Sent image: ${randomImage}`)
+        })
+        .catch((error) => {
+          console.error(`Error sending image: ${error.message}`)
+        })
     })
     .catch((error) => {
-      console.error(`Error sending image: ${error.message}`)
+      console.error(`Error forwarding message: ${error.message}`)
     })
 }
 
